@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title></title>
+		<meta name="keywords" content="关键词,关键词">
+		<meta name="description" content="">
+		<!--css,js-->
+		<style type="text/css">
+			body{font-size:12px;font-family:"微软雅黑";color:#666;}
+			*{margin:0;padding:0;}
+			.left,.right{float:left;width:100px;height:200px;border:1px solid red;}
+			.center{float:left;width:50px;height:120px;margin:10px;margin-top:30px;}
+			.center .xiangyou,.xiangzuo{width:50px;height:50px;margin-top:10px;border:1px solid blue;font-size:40px;text-align:center;line-height:50px;cursor:pointer}
+			.left p,.right p{text-align:center;border-bottom:1px solid #ccc;cursor:pointer;}
+		</style>
+	</head>
+<body>
+	<div class="left" id="left">
+		<p>袁亚斌</p>
+		<p>俞杰</p>
+		<p>赵熙</p>
+		<p>陈灿金</p>
+	</div>
+	<div class="center">
+		<div class="xiangyou" id="turn_right">&gt;</div>
+		<div class="xiangzuo" id="turn_left">&lt;</div>
+	</div>
+	<div class="right" id="right">
+	</div>
+	<script src="jquery-1.11.1.min.js"></script>
+	<script>
+		/*
+			$("document").ready(function(){
+				alert(2);
+			});
+		*/
+		$(function(){
+			$("#left,#right").on("click","p",function(){
+				//点击背景变成灰色
+				$(this).css("background","#ccc").siblings().css("background","#fff");
+			});
+			//向右
+			trun_leftandright("right","left");
+			//向左
+			trun_leftandright("left","right");
+		});
+		function trun_leftandright(str1,str2){
+			$("#turn_"+str1+"").on("click",function(){
+				//1.右边的right里边添加一个p标签，然后将左边元素的文字复制过来
+				var txt="";
+				$("#"+str2+"").find("p").each(function(){
+					if($(this).css("background")=="#ccc"){
+						txt=$(this).text();
+						//2.leftdiv里边的当前选中元素删除
+						$(this).remove();
+					}
+				});
+				var html="<p>"+txt+"</p>";
+				$("#"+str1+"").append(html);
+			});
+		}
+	</script>
+</body>
+</html>
